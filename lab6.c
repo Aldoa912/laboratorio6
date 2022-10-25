@@ -29,11 +29,14 @@
 #define _XTAL_FREQ 8000000
 
 
+char dato[6]={'d','a','t','o',10,13};
+char index = 0;
+
 void setup(void);
 void initUART(void);
 void setupINTOSC(void);
 
-unsigned int i = 0;
+
 //******************************************************************************
 // CÃ³digo Principal
 //******************************************************************************
@@ -47,9 +50,14 @@ void main(void) {
     while(1){
             PORTB++;
             if(TXSTAbits.TRMT == 1){
-            TXREG = PORTB;
+            //TXREG = PORTB+48;
+            TXREG=dato[index];
+            index++;
             
             }
+            if(index>6)
+                index=0;
+            
             if(PIR1bits.RCIF == 1){
             PORTD = RCREG;
             PIR1bits.RCIF = 0;
